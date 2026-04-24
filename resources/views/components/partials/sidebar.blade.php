@@ -67,6 +67,26 @@
                 <span>Manajemen Poli</span>
             </a>
 
+            <a href="{{ route('dokter.index') }}" 
+                class="{{ $baseLink }} {{ request()->routeIs('dokter.*') ? $active : $inactive }}">
+                <i class="fas fa-user-md w-4 text-center"></i>
+                <span>Manajemen Dokter</span>
+            </a>
+
+            <a href="{{ route('pasien.index') }}" 
+                class="{{ $baseLink }} {{ request()->routeIs('pasien.*') ? $active : $inactive }}">
+                <i class="fas fa-user-injured w-4 text-center"></i>
+                <span>Manajemen Pasien</span>
+            </a>
+
+            <a href="{{ route('obat.index') }}" 
+                class="{{ $baseLink }} {{ request()->routeIs('obat.*') ? $active : $inactive }}">
+                <i class="fas fa-pills w-4 text-center"></i>
+                <span>Manajemen Obat</span>
+            </a>
+
+
+
         </div>
         @endif
 
@@ -84,6 +104,12 @@
                 class="{{ $baseLink }} {{ request()->routeIs('pasien.dashboard') ? $active : $inactive }}">
                 <i class="fas fa-house-medical w-4 text-center"></i>
                 Dashboard Pasien
+            </a>
+
+            <a href="{{ route('pasien.daftar') }}"
+                class="{{ $baseLink }} {{ request()->routeIs('pasien.daftar') ? $active : $inactive }}">
+                <i class="fas fa-house-medical w-4 text-center"></i>
+                Pendaftaran Periksa
             </a>
 
 
@@ -104,6 +130,12 @@
                 class="{{ $baseLink }} {{ request()->routeIs('dokter.dashboard') ? $active : $inactive }}">
                 <i class="fas fa-stethoscope w-4 text-center"></i>
                 Dashboard Dokter
+            </a>
+
+            <a href="{{ route('jadwal-periksa.index') }}"
+                class="{{ $baseLink }} {{ request()->routeIs('jadwal-periksa.*') ? $active : $inactive }}">
+                <i class="fas fa-calendar-check w-4 text-center"></i>
+                Jadwal Periksa
             </a>
 
         </div>
