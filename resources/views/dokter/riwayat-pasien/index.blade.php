@@ -1,4 +1,4 @@
-<x-layouts.app title="Data Obat">
+<x-layouts.app title="Riwayat Pasien">
 
     {{-- ================= PAGE HEADER ================= --}}
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
@@ -6,28 +6,31 @@
         {{-- Title --}}
         <div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
 
+                {{-- Icon --}}
                 <div
                     class="
-                        w-12 h-12 rounded-2xl
+                        w-14 h-14 rounded-2xl
                         bg-gradient-to-br from-cyan-500 to-blue-600
                         flex items-center justify-center
                         shadow-lg shadow-cyan-500/20
                     ">
 
-                    <i class="fas fa-capsules text-white text-lg"></i>
+                    <i class="fas fa-clock-rotate-left text-white text-lg"></i>
 
                 </div>
 
+
+                {{-- Text --}}
                 <div>
 
                     <h1 class="text-2xl font-bold text-slate-800">
-                        Data Obat
+                        Riwayat Pasien
                     </h1>
 
-                    <p class="text-sm text-slate-500 mt-0.5">
-                        Kelola data obat dan persediaan klinik
+                    <p class="text-sm text-slate-500 mt-1">
+                        Data riwayat pemeriksaan pasien klinik
                     </p>
 
                 </div>
@@ -35,27 +38,6 @@
             </div>
 
         </div>
-
-
-        {{-- Add Button --}}
-        <a
-            href="{{ route('obat.create') }}"
-            class="
-                inline-flex items-center justify-center gap-2
-                px-5 h-12 rounded-2xl
-                bg-gradient-to-r from-cyan-500 to-blue-600
-                hover:from-cyan-600 hover:to-blue-700
-                text-white font-semibold text-sm
-                shadow-lg shadow-cyan-500/20
-                transition-all duration-300
-                hover:-translate-y-0.5
-            ">
-
-            <i class="fas fa-plus text-sm"></i>
-
-            Tambah Obat
-
-        </a>
 
     </div>
 
@@ -83,11 +65,11 @@
             <div>
 
                 <h2 class="font-semibold text-slate-800">
-                    Daftar Obat
+                    Data Riwayat Pemeriksaan
                 </h2>
 
                 <p class="text-sm text-slate-500 mt-1">
-                    Total {{ $obats->count() }} obat tersedia
+                    Total {{ $riwayatPasien->count() }} riwayat pemeriksaan pasien
                 </p>
 
             </div>
@@ -98,9 +80,9 @@
         {{-- ================= TABLE ================= --}}
         <div class="overflow-x-auto">
 
-            <table class="w-full min-w-[900px]">
+            <table class="w-full min-w-[1100px]">
 
-                {{-- Table Head --}}
+                {{-- ================= TABLE HEAD ================= --}}
                 <thead
                     class="
                         bg-slate-50/80
@@ -110,15 +92,23 @@
                     <tr>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Obat
+                            No Antrian
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Kemasan
+                            Nama Pasien
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Harga
+                            Keluhan
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
+                            Tanggal Periksa
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
+                            Biaya
                         </th>
 
                         <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
@@ -133,16 +123,36 @@
                 {{-- ================= TABLE BODY ================= --}}
                 <tbody class="divide-y divide-slate-100">
 
-                    @forelse($obats as $obat)
+                    @forelse($riwayatPasien as $riwayat)
 
                         <tr class="hover:bg-slate-50/70 transition-all duration-200">
 
-                            {{-- Obat --}}
+                            {{-- No Antrian --}}
+                            <td class="px-6 py-5">
+
+                                <span
+                                    class="
+                                        inline-flex items-center justify-center
+                                        min-w-[48px] h-10 px-3
+                                        rounded-xl
+                                        bg-cyan-50
+                                        text-cyan-700
+                                        text-sm font-bold
+                                    ">
+
+                                    {{ $riwayat->daftarPoli->no_antrian }}
+
+                                </span>
+
+                            </td>
+
+
+                            {{-- Nama Pasien --}}
                             <td class="px-6 py-5">
 
                                 <div class="flex items-center gap-3">
 
-                                    {{-- Icon --}}
+                                    {{-- Avatar --}}
                                     <div
                                         class="
                                             w-12 h-12 rounded-2xl
@@ -152,20 +162,20 @@
                                             shadow-lg shadow-cyan-500/10
                                         ">
 
-                                        <i class="fas fa-capsules text-sm"></i>
+                                        <i class="fas fa-user text-sm"></i>
 
                                     </div>
 
 
-                                    {{-- Info --}}
+                                    {{-- Name --}}
                                     <div>
 
                                         <p class="font-semibold text-slate-800">
-                                            {{ $obat->nama_obat }}
+                                            {{ $riwayat->daftarPoli->pasien->nama }}
                                         </p>
 
                                         <p class="text-xs text-slate-400 mt-0.5">
-                                            Obat Klinik
+                                            Pasien Klinik
                                         </p>
 
                                     </div>
@@ -175,33 +185,44 @@
                             </td>
 
 
-                            {{-- Kemasan --}}
+                            {{-- Keluhan --}}
                             <td class="px-6 py-5">
 
-                                <span
-                                    class="
-                                        inline-flex items-center gap-2
-                                        px-3 py-1.5 rounded-full
-                                        bg-cyan-50
-                                        text-cyan-700
-                                        text-xs font-semibold
-                                    ">
+                                <p class="text-sm text-slate-600 leading-relaxed max-w-md">
 
-                                    <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                                    {{ $riwayat->daftarPoli->keluhan }}
 
-                                    {{ $obat->kemasan ?? '-' }}
-
-                                </span>
+                                </p>
 
                             </td>
 
 
-                            {{-- Harga --}}
+                            {{-- Tanggal --}}
                             <td class="px-6 py-5">
 
-                                <p class="font-semibold text-slate-800">
-                                    Rp {{ number_format($obat->harga, 0, ',', '.') }}
-                                </p>
+                                <div class="flex flex-col">
+
+                                    <span class="font-semibold text-slate-700">
+                                        {{ \Carbon\Carbon::parse($riwayat->tgl_periksa)->format('d M Y') }}
+                                    </span>
+
+                                    <span class="text-xs text-slate-400 mt-1">
+                                        Pemeriksaan Pasien
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            {{-- Biaya --}}
+                            <td class="px-6 py-5">
+
+                                <span class="font-bold text-emerald-600">
+
+                                    Rp {{ number_format($riwayat->biaya_periksa, 0, ',', '.') }}
+
+                                </span>
 
                             </td>
 
@@ -209,56 +230,25 @@
                             {{-- Action --}}
                             <td class="px-6 py-5">
 
-                                <div class="flex items-center justify-end gap-2">
+                                <div class="flex items-center justify-end">
 
-                                    {{-- Edit --}}
                                     <a
-                                        href="{{ route('obat.edit', $obat->id) }}"
+                                        href="{{ route('riwayat-pasien.show', $riwayat->id) }}"
                                         class="
                                             inline-flex items-center gap-2
                                             h-10 px-4 rounded-xl
-                                            bg-amber-50
-                                            hover:bg-amber-100
-                                            text-amber-600
+                                            bg-cyan-50
+                                            hover:bg-cyan-100
+                                            text-cyan-700
                                             text-sm font-semibold
                                             transition-all duration-200
                                         ">
 
-                                        <i class="fas fa-pen-to-square text-xs"></i>
+                                        <i class="fas fa-eye text-xs"></i>
 
-                                        Edit
+                                        Detail
 
                                     </a>
-
-
-                                    {{-- Delete --}}
-                                    <form
-                                        action="{{ route('obat.destroy', $obat->id) }}"
-                                        method="POST">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus obat ini?')"
-                                            class="
-                                                inline-flex items-center gap-2
-                                                h-10 px-4 rounded-xl
-                                                bg-red-50
-                                                hover:bg-red-100
-                                                text-red-600
-                                                text-sm font-semibold
-                                                transition-all duration-200
-                                            ">
-
-                                            <i class="fas fa-trash text-xs"></i>
-
-                                            Hapus
-
-                                        </button>
-
-                                    </form>
 
                                 </div>
 
@@ -268,10 +258,10 @@
 
                     @empty
 
-                        {{-- Empty State --}}
+                        {{-- ================= EMPTY STATE ================= --}}
                         <tr>
 
-                            <td colspan="4" class="py-20">
+                            <td colspan="6" class="py-20">
 
                                 <div class="flex flex-col items-center justify-center text-center">
 
@@ -283,16 +273,16 @@
                                             mb-5
                                         ">
 
-                                        <i class="fas fa-capsules text-3xl text-slate-400"></i>
+                                        <i class="fas fa-folder-open text-3xl text-slate-400"></i>
 
                                     </div>
 
                                     <h3 class="text-lg font-semibold text-slate-700">
-                                        Belum Ada Data Obat
+                                        Belum Ada Riwayat
                                     </h3>
 
                                     <p class="text-sm text-slate-500 mt-2 max-w-sm">
-                                        Saat ini belum terdapat data obat yang tersedia pada sistem.
+                                        Saat ini belum ada riwayat pemeriksaan pasien yang tersedia.
                                     </p>
 
                                 </div>

@@ -1,4 +1,4 @@
-<x-layouts.app title="Data Pasien">
+<x-layouts.app title="Periksa Pasien">
 
     {{-- ================= PAGE HEADER ================= --}}
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
@@ -6,28 +6,31 @@
         {{-- Title --}}
         <div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
 
+                {{-- Icon --}}
                 <div
                     class="
-                        w-12 h-12 rounded-2xl
+                        w-14 h-14 rounded-2xl
                         bg-gradient-to-br from-cyan-500 to-blue-600
                         flex items-center justify-center
                         shadow-lg shadow-cyan-500/20
                     ">
 
-                    <i class="fas fa-user-injured text-white text-lg"></i>
+                    <i class="fas fa-user-doctor text-white text-lg"></i>
 
                 </div>
 
+
+                {{-- Text --}}
                 <div>
 
                     <h1 class="text-2xl font-bold text-slate-800">
-                        Data Pasien
+                        Periksa Pasien
                     </h1>
 
-                    <p class="text-sm text-slate-500 mt-0.5">
-                        Kelola data pasien dan informasi pengguna klinik
+                    <p class="text-sm text-slate-500 mt-1">
+                        Kelola pemeriksaan pasien yang terdaftar
                     </p>
 
                 </div>
@@ -36,28 +39,59 @@
 
         </div>
 
+    </div>
 
-        {{-- Add Button --}}
-        <a
-            href="{{ route('pasien.create') }}"
+
+    {{-- ================= SUCCESS ALERT ================= --}}
+    @if (session('message'))
+
+        <div
+            id="successAlert"
             class="
-                inline-flex items-center justify-center gap-2
-                px-5 h-12 rounded-2xl
-                bg-gradient-to-r from-cyan-500 to-blue-600
-                hover:from-cyan-600 hover:to-blue-700
-                text-white font-semibold text-sm
-                shadow-lg shadow-cyan-500/20
-                transition-all duration-300
-                hover:-translate-y-0.5
+                mb-6
+                flex items-center gap-3
+                px-5 py-4
+                rounded-2xl
+                border
+                {{ session('type') == 'danger'
+                    ? 'border-red-100 bg-red-50 text-red-700'
+                    : 'border-emerald-100 bg-emerald-50 text-emerald-700'
+                }}
             ">
 
-            <i class="fas fa-plus text-sm"></i>
+            <div
+                class="
+                    w-10 h-10 rounded-xl
+                    flex items-center justify-center
+                    text-white
+                    {{ session('type') == 'danger'
+                        ? 'bg-red-500'
+                        : 'bg-emerald-500'
+                    }}
+                ">
 
-            Tambah Pasien
+                <i class="fas fa-{{ session('type') == 'danger'
+                    ? 'circle-xmark'
+                    : 'circle-check'
+                }}"></i>
 
-        </a>
+            </div>
 
-    </div>
+            <div>
+
+                <p class="font-semibold">
+                    {{ session('type') == 'danger' ? 'Gagal' : 'Berhasil' }}
+                </p>
+
+                <p class="text-sm">
+                    {{ session('message') }}
+                </p>
+
+            </div>
+
+        </div>
+
+    @endif
 
 
     {{-- ================= TABLE CARD ================= --}}
@@ -83,11 +117,11 @@
             <div>
 
                 <h2 class="font-semibold text-slate-800">
-                    Daftar Pasien
+                    Daftar Pasien Periksa
                 </h2>
 
                 <p class="text-sm text-slate-500 mt-1">
-                    Total {{ $pasiens->count() }} pasien terdaftar
+                    Total {{ $daftarPasien->count() }} pasien terdaftar
                 </p>
 
             </div>
@@ -98,7 +132,7 @@
         {{-- ================= TABLE ================= --}}
         <div class="overflow-x-auto">
 
-            <table class="w-full min-w-[1000px]">
+            <table class="w-full min-w-[900px]">
 
                 {{-- Table Head --}}
                 <thead
@@ -110,27 +144,23 @@
                     <tr>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
+                            No
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
                             Pasien
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Email
+                            Keluhan
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            No. KTP
-                        </th>
-
-                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            No. HP
-                        </th>
-
-                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Alamat
+                            Antrian
                         </th>
 
                         <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                            Aksi
+                            Status
                         </th>
 
                     </tr>
@@ -141,9 +171,17 @@
                 {{-- ================= TABLE BODY ================= --}}
                 <tbody class="divide-y divide-slate-100">
 
-                    @forelse($pasiens as $pasien)
+                    @forelse ($daftarPasien as $dp)
 
                         <tr class="hover:bg-slate-50/70 transition-all duration-200">
+
+                            {{-- No --}}
+                            <td class="px-6 py-5 text-slate-500 font-medium">
+
+                                #{{ $loop->iteration }}
+
+                            </td>
+
 
                             {{-- Pasien --}}
                             <td class="px-6 py-5">
@@ -156,20 +194,20 @@
                                             w-12 h-12 rounded-2xl
                                             bg-gradient-to-br from-cyan-500 to-blue-600
                                             flex items-center justify-center
-                                            text-white font-bold
+                                            text-white
                                             shadow-lg shadow-cyan-500/10
                                         ">
 
-                                        {{ strtoupper(substr($pasien->nama, 0, 1)) }}
+                                        <i class="fas fa-user text-sm"></i>
 
                                     </div>
 
 
-                                    {{-- Info --}}
+                                    {{-- Name --}}
                                     <div>
 
                                         <p class="font-semibold text-slate-800">
-                                            {{ $pasien->nama }}
+                                            {{ $dp->pasien->nama }}
                                         </p>
 
                                         <p class="text-xs text-slate-400 mt-0.5">
@@ -183,42 +221,34 @@
                             </td>
 
 
-                            {{-- Email --}}
+                            {{-- Keluhan --}}
                             <td class="px-6 py-5">
 
-                                <p class="text-sm text-slate-600">
-                                    {{ $pasien->email }}
+                                <p class="text-sm text-slate-600 leading-relaxed max-w-md">
+
+                                    {{ $dp->keluhan ?? '-' }}
+
                                 </p>
 
                             </td>
 
 
-                            {{-- No KTP --}}
+                            {{-- Antrian --}}
                             <td class="px-6 py-5">
 
-                                <p class="text-sm text-slate-600">
-                                    {{ $pasien->no_ktp ?? '-' }}
-                                </p>
+                                <span
+                                    class="
+                                        inline-flex items-center justify-center
+                                        min-w-[42px] h-10 px-3
+                                        rounded-xl
+                                        bg-cyan-50
+                                        text-cyan-700
+                                        text-sm font-bold
+                                    ">
 
-                            </td>
+                                    {{ $dp->no_antrian }}
 
-
-                            {{-- No HP --}}
-                            <td class="px-6 py-5">
-
-                                <p class="text-sm text-slate-600">
-                                    {{ $pasien->no_hp ?? '-' }}
-                                </p>
-
-                            </td>
-
-
-                            {{-- Alamat --}}
-                            <td class="px-6 py-5 max-w-[260px]">
-
-                                <p class="text-sm text-slate-600 line-clamp-2">
-                                    {{ $pasien->alamat ?? '-' }}
-                                </p>
+                                </span>
 
                             </td>
 
@@ -226,56 +256,48 @@
                             {{-- Action --}}
                             <td class="px-6 py-5">
 
-                                <div class="flex items-center justify-end gap-2">
+                                <div class="flex items-center justify-end">
 
-                                    {{-- Edit --}}
-                                    <a
-                                        href="{{ route('pasien.edit', $pasien->id) }}"
-                                        class="
-                                            inline-flex items-center gap-2
-                                            h-10 px-4 rounded-xl
-                                            bg-amber-50
-                                            hover:bg-amber-100
-                                            text-amber-600
-                                            text-sm font-semibold
-                                            transition-all duration-200
-                                        ">
+                                    @if ($dp->periksas->isNotEmpty())
 
-                                        <i class="fas fa-pen-to-square text-xs"></i>
-
-                                        Edit
-
-                                    </a>
-
-
-                                    {{-- Delete --}}
-                                    <form
-                                        action="{{ route('pasien.destroy', $pasien->id) }}"
-                                        method="POST">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus pasien ini?')"
+                                        {{-- Sudah Diperiksa --}}
+                                        <span
                                             class="
                                                 inline-flex items-center gap-2
                                                 h-10 px-4 rounded-xl
-                                                bg-red-50
-                                                hover:bg-red-100
-                                                text-red-600
+                                                bg-emerald-50
+                                                text-emerald-700
+                                                text-sm font-semibold
+                                            ">
+
+                                            <i class="fas fa-circle-check text-xs"></i>
+
+                                            Sudah Diperiksa
+
+                                        </span>
+
+                                    @else
+
+                                        {{-- Periksa --}}
+                                        <a
+                                            href="{{ route('periksa-pasien.create', $dp->id) }}"
+                                            class="
+                                                inline-flex items-center gap-2
+                                                h-10 px-4 rounded-xl
+                                                bg-amber-50
+                                                hover:bg-amber-100
+                                                text-amber-600
                                                 text-sm font-semibold
                                                 transition-all duration-200
                                             ">
 
-                                            <i class="fas fa-trash text-xs"></i>
+                                            <i class="fas fa-stethoscope text-xs"></i>
 
-                                            Hapus
+                                            Periksa
 
-                                        </button>
+                                        </a>
 
-                                    </form>
+                                    @endif
 
                                 </div>
 
@@ -288,7 +310,7 @@
                         {{-- Empty State --}}
                         <tr>
 
-                            <td colspan="6" class="py-20">
+                            <td colspan="5" class="py-20">
 
                                 <div class="flex flex-col items-center justify-center text-center">
 
@@ -300,16 +322,16 @@
                                             mb-5
                                         ">
 
-                                        <i class="fas fa-user-injured text-3xl text-slate-400"></i>
+                                        <i class="fas fa-user-slash text-3xl text-slate-400"></i>
 
                                     </div>
 
                                     <h3 class="text-lg font-semibold text-slate-700">
-                                        Belum Ada Data Pasien
+                                        Tidak Ada Pasien
                                     </h3>
 
                                     <p class="text-sm text-slate-500 mt-2 max-w-sm">
-                                        Saat ini belum terdapat data pasien yang tersedia pada sistem.
+                                        Saat ini belum ada pasien yang terdaftar untuk pemeriksaan.
                                     </p>
 
                                 </div>
@@ -327,5 +349,29 @@
         </div>
 
     </div>
+
+
+    {{-- ================= AUTO CLOSE ALERT ================= --}}
+    <script>
+
+        setTimeout(() => {
+
+            const alert = document.getElementById('successAlert')
+
+            if(alert){
+
+                alert.style.transition = "all 0.4s ease"
+                alert.style.opacity = "0"
+                alert.style.transform = "translateY(-10px)"
+
+                setTimeout(() => {
+                    alert.remove()
+                }, 400)
+
+            }
+
+        }, 2500)
+
+    </script>
 
 </x-layouts.app>

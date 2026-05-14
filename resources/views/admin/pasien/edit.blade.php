@@ -1,140 +1,432 @@
 <x-layouts.app title="Edit Pasien">
 
-    {{-- Header --}}
-    <div class="flex items-center gap-3 mb-6">
-        <a href="{{ route('pasien.index') }}" class="flex items-center justify-center w-9 h-9 rounded-lg 
-                  bg-slate-100 hover:bg-slate-200 
-                  text-slate-600 transition">
-            <i class="fas fa-arrow-left text-sm"></i>
-        </a>
+    {{-- ================= PAGE HEADER ================= --}}
+    <div class="flex items-center justify-between mb-8">
 
-        <h2 class="text-2xl font-bold text-slate-800">
-            Edit Pasien
-        </h2>
+        <div class="flex items-center gap-4">
+
+            {{-- Back Button --}}
+            <a
+                href="{{ route('pasien.index') }}"
+                class="
+                    w-11 h-11 rounded-2xl
+                    flex items-center justify-center
+                    bg-white border border-slate-200
+                    text-slate-500
+                    hover:bg-slate-50
+                    hover:text-slate-700
+                    transition-all duration-200
+                    shadow-sm
+                ">
+
+                <i class="fas fa-arrow-left text-sm"></i>
+
+            </a>
+
+
+            {{-- Title --}}
+            <div>
+
+                <h1 class="text-2xl font-bold text-slate-800">
+                    Edit Pasien
+                </h1>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Perbarui informasi data pasien
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
-    {{-- Card --}}
-    <div class="card bg-base-100 shadow-md rounded-2xl border border-slate-200">
-        <div class="card-body p-8">
 
-            <form action="{{ route('pasien.update', $pasien->id) }}" method="POST">
+    {{-- ================= FORM CARD ================= --}}
+    <div
+        class="
+            bg-white
+            rounded-[28px]
+            border border-slate-200/70
+            shadow-sm
+            overflow-hidden
+        ">
+
+        {{-- ================= CARD HEADER ================= --}}
+        <div
+            class="
+                px-8 py-6
+                border-b border-slate-100
+                bg-slate-50/50
+            ">
+
+            <div class="flex items-center gap-4">
+
+                {{-- Icon --}}
+                <div
+                    class="
+                        w-14 h-14 rounded-2xl
+                        bg-gradient-to-br from-cyan-500 to-blue-600
+                        flex items-center justify-center
+                        shadow-lg shadow-cyan-500/20
+                    ">
+
+                    <i class="fas fa-user-injured text-white text-lg"></i>
+
+                </div>
+
+
+                {{-- Header Text --}}
+                <div>
+
+                    <h2 class="text-lg font-bold text-slate-800">
+                        Form Edit Pasien
+                    </h2>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Pastikan data pasien telah diperbarui dengan benar
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- ================= FORM BODY ================= --}}
+        <div class="p-8">
+
+            <form
+                action="{{ route('pasien.update', $pasien->id) }}"
+                method="POST"
+                class="space-y-7">
+
                 @csrf
                 @method('PUT')
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+                {{-- ================= GRID ================= --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     {{-- Nama --}}
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">
-                            Nama Pasien <span class="text-red-500">*</span>
+
+                        <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                            Nama Pasien
+                            <span class="text-red-500">*</span>
+
                         </label>
-                        <input type="text" name="nama" value="{{ old('nama', $pasien->nama) }}"
+
+                        <input
+                            type="text"
+                            name="nama"
+                            value="{{ old('nama', $pasien->nama) }}"
                             placeholder="Masukkan nama pasien..."
-                            class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                                   focus:border-primary focus:outline-none
-                                   @error('nama') border-red-500 @enderror"
+                            class="
+                                w-full h-14 px-5
+                                rounded-2xl
+                                border border-slate-200
+                                bg-white
+                                text-slate-700
+                                placeholder:text-slate-400
+                                focus:outline-none
+                                focus:ring-4
+                                focus:ring-cyan-100
+                                focus:border-cyan-400
+                                transition-all duration-200
+                                @error('nama')
+                                    border-red-400
+                                    focus:ring-red-100
+                                @enderror
+                            "
                             required>
+
                         @error('nama')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+
                         @enderror
+
                     </div>
+
 
                     {{-- Email --}}
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">
-                            Email <span class="text-red-500">*</span>
+
+                        <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                            Email
+                            <span class="text-red-500">*</span>
+
                         </label>
-                        <input type="email" name="email" value="{{ old('email', $pasien->email) }}"
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ old('email', $pasien->email) }}"
                             placeholder="Masukkan email..."
-                            class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                                   focus:border-primary focus:outline-none
-                                   @error('email') border-red-500 @enderror"
+                            class="
+                                w-full h-14 px-5
+                                rounded-2xl
+                                border border-slate-200
+                                bg-white
+                                text-slate-700
+                                placeholder:text-slate-400
+                                focus:outline-none
+                                focus:ring-4
+                                focus:ring-cyan-100
+                                focus:border-cyan-400
+                                transition-all duration-200
+                                @error('email')
+                                    border-red-400
+                                    focus:ring-red-100
+                                @enderror
+                            "
                             required>
+
                         @error('email')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+
                         @enderror
+
                     </div>
+
 
                     {{-- No KTP --}}
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">
-                            No. KTP <span class="text-red-500">*</span>
+
+                        <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                            No. KTP
+                            <span class="text-red-500">*</span>
+
                         </label>
-                        <input type="number" name="no_ktp" value="{{ old('no_ktp', $pasien->no_ktp) }}"
-                            placeholder="Masukkan No. KTP..."
-                            class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                                   focus:border-primary focus:outline-none
-                                   @error('no_ktp') border-red-500 @enderror"
+
+                        <input
+                            type="number"
+                            name="no_ktp"
+                            value="{{ old('no_ktp', $pasien->no_ktp) }}"
+                            placeholder="Masukkan nomor KTP..."
+                            class="
+                                w-full h-14 px-5
+                                rounded-2xl
+                                border border-slate-200
+                                bg-white
+                                text-slate-700
+                                placeholder:text-slate-400
+                                focus:outline-none
+                                focus:ring-4
+                                focus:ring-cyan-100
+                                focus:border-cyan-400
+                                transition-all duration-200
+                                @error('no_ktp')
+                                    border-red-400
+                                    focus:ring-red-100
+                                @enderror
+                            "
                             required>
+
                         @error('no_ktp')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+
                         @enderror
+
                     </div>
+
 
                     {{-- No HP --}}
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">
-                            No. HP <span class="text-red-500">*</span>
+
+                        <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                            No. HP
+                            <span class="text-red-500">*</span>
+
                         </label>
-                        <input type="number" name="no_hp" value="{{ old('no_hp', $pasien->no_hp) }}"
-                            placeholder="Masukkan No. HP..."
-                            class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                                   focus:border-primary focus:outline-none
-                                   @error('no_hp') border-red-500 @enderror"
+
+                        <input
+                            type="number"
+                            name="no_hp"
+                            value="{{ old('no_hp', $pasien->no_hp) }}"
+                            placeholder="Masukkan nomor HP..."
+                            class="
+                                w-full h-14 px-5
+                                rounded-2xl
+                                border border-slate-200
+                                bg-white
+                                text-slate-700
+                                placeholder:text-slate-400
+                                focus:outline-none
+                                focus:ring-4
+                                focus:ring-cyan-100
+                                focus:border-cyan-400
+                                transition-all duration-200
+                                @error('no_hp')
+                                    border-red-400
+                                    focus:ring-red-100
+                                @enderror
+                            "
                             required>
+
                         @error('no_hp')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+
                         @enderror
+
                     </div>
 
                 </div>
 
-                {{-- Alamat --}}
-                <div class="mb-6">
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">
-                        Alamat <span class="text-red-500">*</span>
+
+                {{-- ================= ALAMAT ================= --}}
+                <div>
+
+                    <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                        Alamat
+                        <span class="text-red-500">*</span>
+
                     </label>
-                    <textarea name="alamat" rows="3" placeholder="Masukkan alamat..."
-                        class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                               focus:border-primary focus:outline-none
-                               @error('alamat') border-red-500 @enderror"
+
+                    <textarea
+                        name="alamat"
+                        rows="4"
+                        placeholder="Masukkan alamat lengkap..."
+                        class="
+                            w-full px-5 py-4
+                            rounded-2xl
+                            border border-slate-200
+                            bg-white
+                            text-slate-700
+                            placeholder:text-slate-400
+                            focus:outline-none
+                            focus:ring-4
+                            focus:ring-cyan-100
+                            focus:border-cyan-400
+                            transition-all duration-200
+                            resize-none
+                            @error('alamat')
+                                border-red-400
+                                focus:ring-red-100
+                            @enderror
+                        "
                         required>{{ old('alamat', $pasien->alamat) }}</textarea>
+
                     @error('alamat')
-                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                        <p class="mt-2 text-sm text-red-500">
+                            {{ $message }}
+                        </p>
+
                     @enderror
+
                 </div>
 
-                {{-- Password --}}
-                <div class="mb-8">
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">
-                        Password
+
+                {{-- ================= PASSWORD ================= --}}
+                <div>
+
+                    <label class="block mb-2 text-sm font-semibold text-slate-700">
+
+                        Password Baru
+
                     </label>
-                    <input type="password" name="password"
-                        placeholder="Kosongkan jika tidak ingin mengubah..."
-                        class="w-full px-4 py-2 rounded-lg border-2 border-slate-300 
-                               focus:border-primary focus:outline-none
-                               @error('password') border-red-500 @enderror">
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Kosongkan jika tidak ingin mengganti password..."
+                        class="
+                            w-full h-14 px-5
+                            rounded-2xl
+                            border border-slate-200
+                            bg-white
+                            text-slate-700
+                            placeholder:text-slate-400
+                            focus:outline-none
+                            focus:ring-4
+                            focus:ring-cyan-100
+                            focus:border-cyan-400
+                            transition-all duration-200
+                            @error('password')
+                                border-red-400
+                                focus:ring-red-100
+                            @enderror
+                        ">
+
                     @error('password')
-                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+
+                        <p class="mt-2 text-sm text-red-500">
+                            {{ $message }}
+                        </p>
+
                     @enderror
+
                 </div>
 
-                {{-- Buttons --}}
-                <div class="flex gap-3">
-                    <button type="submit"
-                        class="flex items-center gap-2 px-6 py-2.5 bg-[#2d4499] hover:bg-[#1e2d6b] text-white rounded-lg text-sm font-semibold transition">
-                        <i class="fas fa-save"></i> Update
+
+                {{-- ================= ACTION BUTTON ================= --}}
+                <div class="flex flex-col sm:flex-row gap-3 pt-4">
+
+                    {{-- Submit --}}
+                    <button
+                        type="submit"
+                        class="
+                            inline-flex items-center justify-center gap-2
+                            h-12 px-6 rounded-2xl
+                            bg-gradient-to-r from-cyan-500 to-blue-600
+                            hover:from-cyan-600 hover:to-blue-700
+                            text-white font-semibold text-sm
+                            shadow-lg shadow-cyan-500/20
+                            transition-all duration-300
+                            hover:-translate-y-0.5
+                        ">
+
+                        <i class="fas fa-floppy-disk text-sm"></i>
+
+                        Simpan Perubahan
+
                     </button>
 
-                    <a href="{{ route('pasien.index') }}"
-                        class="px-6 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 
-                               text-slate-600 font-semibold text-sm transition">
+
+                    {{-- Cancel --}}
+                    <a
+                        href="{{ route('pasien.index') }}"
+                        class="
+                            inline-flex items-center justify-center gap-2
+                            h-12 px-6 rounded-2xl
+                            border border-slate-200
+                            bg-white
+                            hover:bg-slate-50
+                            text-slate-600 font-semibold text-sm
+                            transition-all duration-200
+                        ">
+
+                        <i class="fas fa-xmark text-sm"></i>
+
                         Batal
+
                     </a>
+
                 </div>
 
             </form>
+
         </div>
+
     </div>
 
 </x-layouts.app>

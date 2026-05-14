@@ -1,31 +1,32 @@
-<x-layouts.guest title="Login">
+<x-layouts.guest title="Register">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* =========================================================
-   ROOT
+   ROOT VARIABLES
 ========================================================= */
 
 :root{
-    --bg-primary: #050816;
-    --bg-secondary: #0b1120;
+    --bg-primary:#050816;
+    --bg-secondary:#0f172a;
 
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-primary:#f8fafc;
+    --text-secondary:#94a3b8;
+    --text-muted:#64748b;
 
-    --border-color: rgba(255,255,255,0.08);
+    --border-color:rgba(255,255,255,.08);
 
-    --primary: #38bdf8;
-    --primary-dark: #6366f1;
+    --primary:#38bdf8;
+    --primary-dark:#6366f1;
 
-    --danger: #ef4444;
+    --danger:#ef4444;
 
-    --radius-lg: 18px;
-    --radius-xl: 24px;
+    --radius-lg:18px;
+    --radius-xl:24px;
 
-    --transition: .25s ease;
+    --transition:.25s ease;
 }
 
 /* =========================================================
@@ -40,56 +41,60 @@
 
 body{
     font-family:'Inter',sans-serif;
-    background: var(--bg-primary);
+    background:var(--bg-primary);
 }
 
 /* =========================================================
-   LAYOUT
+   PAGE
 ========================================================= */
 
-.login-page{
+.register-page{
     min-height:100vh;
     display:flex;
     overflow:hidden;
     position:relative;
 }
 
-/* Background Glow */
+/* BACKGROUND GLOW */
 
-.login-page::before{
+.register-page::before{
     content:'';
+
     position:absolute;
 
     width:500px;
     height:500px;
 
-    top:-150px;
+    top:-180px;
     left:-150px;
 
     background:#2563eb;
-    opacity:.15;
 
-    filter:blur(140px);
+    opacity:.14;
+
+    filter:blur(150px);
 }
 
-.login-page::after{
+.register-page::after{
     content:'';
+
     position:absolute;
 
-    width:450px;
-    height:450px;
+    width:420px;
+    height:420px;
 
+    bottom:-150px;
     right:-120px;
-    bottom:-120px;
 
     background:#7c3aed;
+
     opacity:.12;
 
     filter:blur(140px);
 }
 
 /* =========================================================
-   LEFT PANEL
+   LEFT SIDE
 ========================================================= */
 
 .auth-brand{
@@ -111,8 +116,8 @@ body{
 }
 
 .logo-box{
-    width:88px;
-    height:88px;
+    width:90px;
+    height:90px;
 
     border-radius:28px;
 
@@ -129,7 +134,7 @@ body{
     );
 
     box-shadow:
-        0 10px 40px rgba(59,130,246,.35),
+        0 12px 40px rgba(59,130,246,.35),
         inset 0 1px 1px rgba(255,255,255,.1);
 
     animation:floating 4s ease-in-out infinite;
@@ -141,6 +146,7 @@ body{
 }
 
 @keyframes floating{
+
     0%,100%{
         transform:translateY(0);
     }
@@ -151,15 +157,16 @@ body{
 }
 
 .brand-title{
-    font-size:4rem;
+    font-size:3.8rem;
     line-height:1.05;
+
     font-weight:800;
 
     color:var(--text-primary);
 
-    margin-bottom:18px;
-
     letter-spacing:-2px;
+
+    margin-bottom:18px;
 }
 
 .brand-title span{
@@ -176,35 +183,30 @@ body{
 .brand-subtitle{
     color:var(--text-muted);
 
-    font-size:1rem;
-    letter-spacing:.12em;
     text-transform:uppercase;
+    letter-spacing:.14em;
 
-    margin-bottom:54px;
+    margin-bottom:50px;
 }
 
 /* =========================================================
-   FEATURES
+   STEPS
 ========================================================= */
 
-.feature-list{
+.step-list{
     display:flex;
     flex-direction:column;
-    gap:18px;
+    gap:20px;
 }
 
-.feature-item{
+.step-item{
     display:flex;
-    align-items:center;
     gap:16px;
-
-    color:var(--text-secondary);
-    font-size:.95rem;
 }
 
-.feature-icon{
-    width:42px;
-    height:42px;
+.step-number{
+    width:40px;
+    height:40px;
 
     border-radius:14px;
 
@@ -213,21 +215,40 @@ body{
     justify-content:center;
 
     flex-shrink:0;
+
+    font-size:.85rem;
+    font-weight:700;
 }
 
-.feature-blue{
+.step-blue{
     background:rgba(56,189,248,.12);
     color:#38bdf8;
 }
 
-.feature-indigo{
+.step-indigo{
     background:rgba(99,102,241,.12);
     color:#818cf8;
 }
 
-.feature-teal{
+.step-teal{
     background:rgba(45,212,191,.12);
     color:#2dd4bf;
+}
+
+.step-content h4{
+    color:var(--text-secondary);
+
+    font-size:.92rem;
+
+    margin-bottom:4px;
+}
+
+.step-content p{
+    color:var(--text-muted);
+
+    font-size:.82rem;
+
+    line-height:1.6;
 }
 
 /* =========================================================
@@ -248,52 +269,54 @@ body{
 }
 
 /* =========================================================
-   RIGHT PANEL
+   RIGHT SIDE
 ========================================================= */
 
 .auth-form-section{
-    width:480px;
+    width:540px;
 
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 
-    padding:60px;
+    padding:60px 50px;
 
     position:relative;
     z-index:2;
+
+    overflow-y:auto;
 }
 
 .form-container{
     width:100%;
-    max-width:380px;
+    max-width:420px;
 }
 
 /* =========================================================
    FORM HEADER
 ========================================================= */
 
-.form-label-top{
+.form-top-label{
     color:var(--primary);
-
-    text-transform:uppercase;
-    letter-spacing:.18em;
 
     font-size:.78rem;
     font-weight:600;
 
-    margin-bottom:14px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+
+    margin-bottom:12px;
 }
 
 .form-title{
-    font-size:2.5rem;
+    font-size:2.4rem;
     font-weight:800;
 
     color:var(--text-primary);
 
-    margin-bottom:10px;
-
     letter-spacing:-1px;
+
+    margin-bottom:10px;
 }
 
 .form-description{
@@ -301,11 +324,11 @@ body{
 
     line-height:1.7;
 
-    margin-bottom:36px;
+    margin-bottom:34px;
 }
 
 /* =========================================================
-   ERROR BOX
+   ERROR ALERT
 ========================================================= */
 
 .alert-error{
@@ -317,21 +340,21 @@ body{
 
     border-radius:16px;
 
-    margin-bottom:24px;
-
     background:rgba(239,68,68,.08);
 
-    border:1px solid rgba(239,68,68,.18);
+    border:1px solid rgba(239,68,68,.16);
 
     color:#fca5a5;
+
+    margin-bottom:24px;
 }
 
 /* =========================================================
-   FORM GROUP
+   FORM
 ========================================================= */
 
 .form-group{
-    margin-bottom:22px;
+    margin-bottom:18px;
 }
 
 .form-group label{
@@ -341,7 +364,7 @@ body{
 
     color:var(--text-secondary);
 
-    font-size:.82rem;
+    font-size:.8rem;
     font-weight:600;
 
     text-transform:uppercase;
@@ -349,7 +372,7 @@ body{
 }
 
 .input-wrapper{
-    height:58px;
+    height:56px;
 
     display:flex;
     align-items:center;
@@ -366,7 +389,7 @@ body{
 }
 
 .input-wrapper:focus-within{
-    border-color:rgba(56,189,248,.4);
+    border-color:rgba(56,189,248,.45);
 
     background:rgba(56,189,248,.04);
 
@@ -375,15 +398,18 @@ body{
 
 .input-icon{
     color:#475569;
+
     margin-right:14px;
+
+    flex-shrink:0;
 }
 
 .input-wrapper input{
     flex:1;
 
+    background:transparent;
     border:none;
     outline:none;
-    background:transparent;
 
     color:var(--text-primary);
 
@@ -396,6 +422,7 @@ body{
 
 .password-toggle{
     cursor:pointer;
+
     color:#475569;
 
     transition:var(--transition);
@@ -405,18 +432,63 @@ body{
     color:#94a3b8;
 }
 
-/* =========================================================
-   BUTTON
-========================================================= */
+/* REMOVE NUMBER ARROWS */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance:none;
+}
+
+/* GRID */
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+/* SECTION DIVIDER */
+
+.section-divider{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    margin:26px 0 20px;
+}
+
+.section-divider::before,
+.section-divider::after{
+    content:'';
+
+    flex:1;
+    height:1px;
+
+    background:rgba(255,255,255,.06);
+}
+
+.section-divider span{
+    color:#475569;
+
+    font-size:.74rem;
+    font-weight:600;
+
+    letter-spacing:.14em;
+
+    text-transform:uppercase;
+}
+
+/* BUTTON */
 
 .btn-submit{
     width:100%;
-    height:58px;
+    height:56px;
 
     border:none;
     border-radius:18px;
 
-    margin-top:10px;
+    margin-top:8px;
 
     cursor:pointer;
 
@@ -432,7 +504,7 @@ body{
     );
 
     box-shadow:
-        0 10px 30px rgba(99,102,241,.25);
+        0 12px 30px rgba(99,102,241,.25);
 
     transition:var(--transition);
 }
@@ -441,27 +513,24 @@ body{
     transform:translateY(-2px);
 
     box-shadow:
-        0 16px 40px rgba(99,102,241,.35);
+        0 18px 40px rgba(99,102,241,.35);
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/* FOOTER */
 
 .auth-footer{
     text-align:center;
 
-    margin-top:28px;
+    margin-top:26px;
 
     color:var(--text-muted);
-
-    font-size:.92rem;
 }
 
 .auth-footer a{
     color:var(--primary);
 
     text-decoration:none;
+
     font-weight:600;
 }
 
@@ -469,7 +538,7 @@ body{
    RESPONSIVE
 ========================================================= */
 
-@media(max-width: 960px){
+@media(max-width:960px){
 
     .auth-brand,
     .auth-divider{
@@ -478,17 +547,21 @@ body{
 
     .auth-form-section{
         width:100%;
-        padding:40px 24px;
+        padding:50px 24px;
     }
 
     .form-title{
         font-size:2rem;
     }
+
+    .grid-2{
+        grid-template-columns:1fr;
+    }
 }
 
 </style>
 
-<div class="login-page">
+<div class="register-page">
 
     {{-- LEFT SIDE --}}
     <section class="auth-brand">
@@ -500,38 +573,53 @@ body{
             </div>
 
             <h1 class="brand-title">
-                Selamat Datang di
+                Bergabung Bersama
                 <span>Poliklinik</span>
             </h1>
 
             <p class="brand-subtitle">
-                Sistem Informasi Klinik Modern
+                Daftar Akun Baru
             </p>
 
-            <div class="feature-list">
+            <div class="step-list">
 
-                <div class="feature-item">
-                    <div class="feature-icon feature-blue">
-                        <i class="fas fa-shield-halved"></i>
+                <div class="step-item">
+
+                    <div class="step-number step-blue">
+                        01
                     </div>
 
-                    <span>Data pasien aman & terenkripsi</span>
+                    <div class="step-content">
+                        <h4>Isi Data Diri</h4>
+                        <p>Lengkapi nama, email, dan alamat lengkap.</p>
+                    </div>
+
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon feature-indigo">
-                        <i class="fas fa-calendar-check"></i>
+                <div class="step-item">
+
+                    <div class="step-number step-indigo">
+                        02
                     </div>
 
-                    <span>Manajemen jadwal real-time</span>
+                    <div class="step-content">
+                        <h4>Verifikasi Identitas</h4>
+                        <p>No HP dan KTP digunakan untuk keamanan akun.</p>
+                    </div>
+
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon feature-teal">
-                        <i class="fas fa-chart-line"></i>
+                <div class="step-item">
+
+                    <div class="step-number step-teal">
+                        03
                     </div>
 
-                    <span>Laporan & analitik terpadu</span>
+                    <div class="step-content">
+                        <h4>Buat Password</h4>
+                        <p>Gunakan password yang aman dan mudah diingat.</p>
+                    </div>
+
                 </div>
 
             </div>
@@ -548,30 +636,58 @@ body{
 
         <div class="form-container">
 
-            <p class="form-label-top">
-                Poliklinik — Portal
+            <p class="form-top-label">
+                Poliklinik — Registrasi
             </p>
 
             <h2 class="form-title">
-                Masuk ke Akun
+                Buat Akun Baru
             </h2>
 
             <p class="form-description">
-                Gunakan email dan password yang sudah terdaftar untuk mengakses dashboard sistem.
+                Lengkapi seluruh data berikut untuk membuat akun baru pada sistem Poliklinik.
             </p>
 
             {{-- ERROR --}}
             @if ($errors->any())
+
                 <div class="alert-error">
+
                     <i class="fas fa-circle-exclamation"></i>
-                    <span>{{ $errors->first() }}</span>
+
+                    <span>
+                        {{ $errors->first() }}
+                    </span>
+
                 </div>
+
             @endif
 
             {{-- FORM --}}
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('register') }}" method="POST">
 
                 @csrf
+
+                {{-- NAMA --}}
+                <div class="form-group">
+
+                    <label>Nama Lengkap</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-user input-icon"></i>
+
+                        <input
+                            type="text"
+                            name="nama"
+                            value="{{ old('nama') }}"
+                            placeholder="Masukkan nama lengkap"
+                            required
+                        >
+
+                    </div>
+
+                </div>
 
                 {{-- EMAIL --}}
                 <div class="form-group">
@@ -594,6 +710,79 @@ body{
 
                 </div>
 
+                {{-- ALAMAT --}}
+                <div class="form-group">
+
+                    <label>Alamat</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-location-dot input-icon"></i>
+
+                        <input
+                            type="text"
+                            name="alamat"
+                            value="{{ old('alamat') }}"
+                            placeholder="Masukkan alamat lengkap"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                {{-- GRID --}}
+                <div class="grid-2">
+
+                    {{-- HP --}}
+                    <div class="form-group">
+
+                        <label>No HP</label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fas fa-phone input-icon"></i>
+
+                            <input
+                                type="number"
+                                name="no_hp"
+                                value="{{ old('no_hp') }}"
+                                placeholder="08xxxx"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    {{-- KTP --}}
+                    <div class="form-group">
+
+                        <label>No KTP</label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fas fa-id-card input-icon"></i>
+
+                            <input
+                                type="number"
+                                name="no_ktp"
+                                value="{{ old('no_ktp') }}"
+                                placeholder="16 digit"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- SECURITY --}}
+                <div class="section-divider">
+                    <span>Keamanan Akun</span>
+                </div>
+
                 {{-- PASSWORD --}}
                 <div class="form-group">
 
@@ -607,14 +796,41 @@ body{
                             type="password"
                             name="password"
                             id="password"
-                            placeholder="••••••••"
+                            placeholder="Minimal 8 karakter"
                             required
                         >
 
                         <i
                             class="fas fa-eye password-toggle"
                             id="togglePassword"
-                            onclick="togglePassword()"
+                            onclick="togglePassword('password','togglePassword')"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+                {{-- CONFIRM PASSWORD --}}
+                <div class="form-group">
+
+                    <label>Konfirmasi Password</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fas fa-lock input-icon"></i>
+
+                        <input
+                            type="password"
+                            name="password_confirmation"
+                            id="confirmPassword"
+                            placeholder="Ulangi password"
+                            required
+                        >
+
+                        <i
+                            class="fas fa-eye password-toggle"
+                            id="toggleConfirmPassword"
+                            onclick="togglePassword('confirmPassword','toggleConfirmPassword')"
                         ></i>
 
                     </div>
@@ -624,9 +840,11 @@ body{
                 {{-- BUTTON --}}
                 <button type="submit" class="btn-submit">
 
-                    <i class="fas fa-right-to-bracket"></i>
+                    <i class="fas fa-user-plus"></i>
+
                     &nbsp;
-                    Masuk Sekarang
+
+                    Buat Akun
 
                 </button>
 
@@ -635,10 +853,10 @@ body{
             {{-- FOOTER --}}
             <div class="auth-footer">
 
-                Belum punya akun?
+                Sudah punya akun?
 
-                <a href="{{ route('register') }}">
-                    Daftar di sini
+                <a href="{{ route('login') }}">
+                    Masuk di sini
                 </a>
 
             </div>
@@ -653,10 +871,10 @@ body{
 
 <script>
 
-function togglePassword()
+function togglePassword(inputId, iconId)
 {
-    const input = document.getElementById('password');
-    const icon  = document.getElementById('togglePassword');
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
 
     const isPassword = input.type === 'password';
 
