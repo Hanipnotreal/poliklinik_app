@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obat', function (Blueprint $table) {
+        Schema::create('periksas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_obat');
-            $table->string('kemasan', 35)->nullable();
-            $table->integer('harga');
-            $table->integer('stok')->default(0);
+            $table->foreignId('id_daftar_poli')->constrained('daftar_poli')->cascadeOnDelete();
+            $table->dateTime('tgl_periksa');
+            $table->text('catatan')->nullable();
+            $table->integer('biaya_periksa')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obat');
+        Schema::dropIfExists('periksas');
     }
 };

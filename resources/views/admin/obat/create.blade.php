@@ -256,6 +256,37 @@
 
                 </div>
 
+                {{-- ================= STOK ================= --}}
+                <div>
+                    <label class="block mb-2 text-sm font-semibold text-slate-700">
+                        Stok Awal
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        name="stok"
+                        value="{{ old('stok', 0) }}"
+                        placeholder="0"
+                        min="0"
+                        class="
+                            w-full h-14 px-5
+                            rounded-2xl
+                            border border-slate-200
+                            bg-white
+                            text-slate-700
+                            placeholder:text-slate-400
+                            focus:outline-none
+                            focus:ring-4
+                            focus:ring-cyan-100
+                            focus:border-cyan-400
+                            transition-all duration-200
+                            @error('stok') border-red-400 focus:ring-red-100 @enderror
+                        "
+                        required>
+                    @error('stok')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
                 {{-- ================= ACTION BUTTON ================= --}}
                 <div class="flex flex-col sm:flex-row gap-3 pt-4">

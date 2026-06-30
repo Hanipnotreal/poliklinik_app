@@ -28,6 +28,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('dokter', DokterController::class);
     Route::resource('pasien', PasienController::class);
     Route::resource('obat', ObatController::class);
+    Route::post('/obat/{id}/tambah-stok', [ObatController::class, 'tambahStok'])->name('obat.tambahStok');
+    Route::post('/obat/{id}/kurangi-stok', [ObatController::class, 'kurangiStok'])->name('obat.kurangiStok');
 
 });
 
@@ -55,7 +57,6 @@ Route::middleware(['auth', 'role:pasien'])
         })->name('dashboard');
 
         Route::get('/daftar', [PasienPoliController::class, 'get'])->name('daftar');
-
         Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('daftar.submit');
 
     
